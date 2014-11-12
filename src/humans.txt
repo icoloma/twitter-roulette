@@ -1,0 +1,14 @@
+# humanstxt.org/
+# This website is brought to you by some people with nothing better to do
+
+# TEAM
+
+    @nachocoloma -- Runs behind shiny things
+
+# Okay, and now what you were probably wondering about
+
+    This site uses on the browser:
+    HTML5, CSS3, Foundation 5, Twitter API, cola-favored candy bars 
+
+    On the server:
+    HTML5 Boilerplate, node.js, gulp, jekyll, unicorn compost

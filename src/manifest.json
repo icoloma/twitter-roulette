@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+
+  "name": "DAT Twitter Roulette",
+  "description": "This extension allows to select a random tweet from a sample search.",
+  "version": "1.0",
+
+  "permissions": [
+    "https://api.twitter.com/"
+  ],
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "index.html"
+  }
+}

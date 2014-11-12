@@ -1,0 +1,6 @@
+dist
+node_modules
+*.sublime-workspace
+_site
+*.orig
+npm-debug.log

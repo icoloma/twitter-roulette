@@ -1,0 +1,33 @@
+#!/bin/bash
+set -e
+
+gulp dist
+
+DIR='.upload'
+
+rm -rf $DIR
+mkdir $DIR
+cd $DIR
+
+git init
+git remote add origin git@github.com:icoloma/twitter-roulette.git
+git remote update
+git checkout -b gh-pages origin/gh-pages 
+
+rm -r *
+cp -r ../dist/* .
+
+git add --all .
+if [ -z "$1" ]; then
+  MESSAGE="Site updated at $(date +'%d-%m-%Y')"
+else
+  MESSAGE="$1"
+fi
+git commit -m "$MESSAGE"
+git push
+
+cd ..
+
+echo "Successfully uploaded" 
+google-chrome http://twitter-roulette.github.io
+                                   
