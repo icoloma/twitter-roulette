@@ -2,64 +2,40 @@
 <html class="no-js">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Twitter Roulette - Draw a random tweet from your timeline</title>
-  <meta name="description" content="{{page.description}}">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="./css/app.css">
 </head>
 <body>
-  <!--[if lte IE 10]>
-    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
 
-  <section class="contents">
-    <div class="row">
-      <div class="columns">
-        <h1>DAT Twitter Roulette</h1>
+  <div class="row">
+    <div class="columns contents">
+      <h1>DAT Twitter Roulette</h1>
+      <p class="lead">Search for a random tweet in fashion and style.
+      <form class="roulette-form">
+        <div class="row collapse">
+          <div class="columns small-6">
+            <input type="text" name="q" class="query" placeholder="Enter your twitter search" required>
+          </div>
+          <div class="columns small-6">
+            <button type="submit" class="showtime-button"><span class="icon-right-open"></span> <b>Showtime!</b></button>
+          </div>
+        </div>
+      </form>
+      <div class="tweets">
+        <p>Enter your query and prepare to be thrilled and dazzled.
+      <div>
+      <hr>
+        <p><small>Your credentials will be used only to communicate with the Twitter website. You can check <a href="https://github.com/icoloma/twitter-roulette">the source code on Github</a>.</small>
+        <br><small>Developed in 24h with ♥ by Extrema Sistemas. If you like it, share the love <a href="http://twitter.com/extremasistemas">on Twitter</a>.</small>
       </div>
-      <div class="columns medium-6">
-        <p class="lead">Search for a random tweet in fashion and style.
-        <form class="roulette-form">
-          <label>
-            Search term
-            <input type="text" name="q" class="query" placeholder="Try with #unicorns #rainbows" required>
-          </label>
-          <label>
-            Your Twitter API key
-            <input type="text" name="api-key" class="api-key" required>
-          </label>
-          <label>
-            Your Twitter API secret
-            <input type="password" name="api-secret" class="api-secret" required>
-          </label>
-          <label>
-            Your Access Token
-            <input type="text" name="access-token" class="access-token" required>
-          </label>
-          <label>
-            Your Access Token Secret
-            <input type="password" name="access-token-secret" class="access-token-secret" required>
-          </label>
-          <button type="submit"><span class="icon-right-open"></span> Showtime!</button>
-        </form>
-      </div>
-      <div class="columns medium-6 tweets">
-        <p>Enter your query in the form and prepare to be thrilled and dazzled.
-        
+
       </div>
     </div>
-  </section>
+  </div>
 
-  <footer>
-  <hr>
-    <div class="row">
-      <div class="columns">
-        <p><small>We will use this data only to communicate to the Twitter website. You can check <a href="https://github.com/icoloma/twitter-roulette">the source code on Github</a>.</small>
-        <br><small>Developed with ♥ in 8h by Extrema Sistemas. If you like this, drop us a line <a href="http://twitter.com/extremasistemas">on Twitter</a>.</small>
-      </div>
-    </div>
-  </footer>
+  <script type="text/template" class="tweet-template">
+    <div class="tweet"></div>
+  </script>
 
   <script src="./js/vendor/jquery-2.1.1.min.js"></script>
   <script src="./js/app.js"></script>

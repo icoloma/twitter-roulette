@@ -51,7 +51,7 @@ gulp.task('scripts', function () {
       .pipe(jshint.reporter(require('jshint-stylish'))),
 
     // Concatenate, minify and copy all JavaScript (except vendor scripts)
-    gulp.src('src/js/app.js')
+    gulp.src(['src/js/app.js', 'src/js/options.js'])
       .pipe(browserify({
         insertGlobals: true,
         debug: false // true

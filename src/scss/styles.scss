@@ -7,3 +7,15 @@
 html, body {
   width: 800px;
 }
+.success {
+  color: $green;
+}
+.icon-heart-broken {
+  color: $red;
+}
+.collapse .showtime-button {
+  @include button-size(rem-calc(10));
+}
+.tweets-loading {
+  line-height: 4;
+}

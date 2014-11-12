@@ -84,6 +84,8 @@
     // Custom Globals
     "globals"       : { 
         "jQuery": false,
-        "require": false
+        "require": false,
+        "exports": false,
+        "chrome": false
     }
 }

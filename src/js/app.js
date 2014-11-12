@@ -9,69 +9,108 @@
   // create your app
   // go to key and access tokens https://apps.twitter.com/app/7198719/keys
   // click "Create Token"
+  var MAX_TWEETS = 200;
 
   var _ = require('lodash')
   , OAuth   = require('oauth-1.0a')
-  , s = localStorage.getItem('credentials')
-  , query = localStorage.getItem('query')
-  , credentials = (s && JSON.parse(s)) || {
-    'api-key': '',
-    'api-secret': '',
-    'access-token': '',
-    'access-token-secret': ''
-  }
+  , template = require('./template').template
+  , moment = require('moment')
+  , credentials
+  , oauth
+  , token
+  , tweetCount
 
-  for (var i in credentials) {
-    $('.' + i).val(credentials[i]);
-  }
-  $('.query').val(query);
-
-  $('.roulette-form').on('submit', function(e) {
-    e.preventDefault();
-    for (var i in credentials) {
-      credentials[i] = $('.' + i).val();
-    }
-    localStorage.setItem('credentials', JSON.stringify(credentials));
-    localStorage.setItem('query', query);
-
-    var oauth = OAuth({
-      consumer: {
-        public: credentials['api-key'], 
-        secret: credentials['api-secret']
-      },
-      signature_method: 'HMAC-SHA1'
-    }), token = {
-      public: credentials['access-token'],
-      secret: credentials['access-token-secret']
-    }
-
+  , retrieveTweets = function(params) {
+    $('.tweets-loading').html('Reading ' + (tweetCount + 100) + ' tweets...');
     var request_data = {
-          url: 'https://api.twitter.com/1.1/search/tweets.json?q=foobar&count=100',
-          method: 'GET'
-      };
+        url: 'https://api.twitter.com/1.1/search/tweets.json' + params,
+        method: 'GET'
+    };
     $.ajax({
       url: request_data.url,
       type: request_data.method,
       headers: oauth.toHeader(oauth.authorize(request_data, token))
-    }).done(function(response) {
+    }).then(function(response) {
       console.log(response);
       var tweets = response.statuses.map(function(item) {
         return JSON.stringify(item);
       })
 
-      // response.search_metadata.next_results
+      tweetCount += response.statuses.length
+      if (tweetCount < MAX_TWEETS && response.statuses.length) {
+        retrieveTweets(response.search_metadata.next_results)
+      } else {
+        var tmpl = template($('.tweet-template').html())
+        , html = !tweetCount? '<p><span class="icon-heart-broken"></span> No tweets found' : response.statuses.map(function(tweet) {
+          return tmpl(_.extend({
+            humanizedTime: moment().fromNow()
+          }, tweet))
+        }).join('');
+        $('.tweets').html(html);
+      }
       
-      $('#tweets').html(tweets.join(''))
     });
-       
-  });
-  
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-2309405-13', 'auto');
-  ga('send', 'pageview');
+  }
+
+  chrome.storage.sync.get({
+    'api-key': '',
+    'api-secret': '',
+    'access-token': '',
+    'access-token-secret': ''
+  }, function(c) {
+    credentials = c;
+    for (var i in credentials) {
+      if ( credentials.hasOwnProperty( i )  && !credentials[i]) {
+        $('.contents').html(
+          template('<h1>Configuration required</h1><p>You should fill in your Twitter credentials in the <a href="{{link}}">options page</a> before going further.', {
+            link: chrome.extension.getURL("options.html")
+          }
+        ))
+      }
+    }
+  });
+
+  // set the values on the form
+  $('.query').val(localStorage.getItem('query') || '');
+
+  // intercept the submit event
+  $('.roulette-form').on('submit', function(e) {
+    e.preventDefault();
+
+    // reset the tweet counter
+    tweetCount = 0;
+
+    // save the query into localStorage
+    var query = $('.query').val();
+    localStorage.setItem('query', query);
+
+    // prepare credentials
+    oauth = OAuth({
+      consumer: {
+        public: credentials['api-key'], 
+        secret: credentials['api-secret']
+      },
+      signature_method: 'HMAC-SHA1'
+    });
+    token = {
+      public: credentials['access-token'],
+      secret: credentials['access-token-secret']
+    };
+
+    $('.tweets').html(
+      '<div class="row">' +
+        '<div class="columns small-2">' +
+          '<div id="preloader_2"> <span></span> <span></span> <span></span> <span></span> </div>' +
+        '</div>' +
+        '<div class="columns small-10"><output class="tweets-loading"></output></div>' +
+      '</div>'
+    );
+    retrieveTweets('?' + $.param({
+      q: query,
+      count: 100
+    }))
+
+  });
 
 })(jQuery)

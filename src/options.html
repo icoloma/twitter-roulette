@@ -1,0 +1,46 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <title>Twitter Roulette - Draw a random tweet from your timeline</title>
+  <link rel="stylesheet" href="./css/app.css">
+</head>
+<body>
+
+  <section class="contents">
+    <div class="row">
+      <div class="columns">
+        <h1>Options</h1>
+      </div>
+      <div class="columns medium-6">
+        <p class="lead">We need you to fill this form in order to execute Twitter queries. Go to <a href="https://apps.twitter.com/">apps.twitter.com</a> to create an app and an Access Token, and copy them here.
+      </div>
+      <div class="columns medium-6">
+        <form class="options-form">
+          <label>
+            Your Twitter API key
+            <input type="text" name="api-key" class="api-key" required>
+          </label>
+          <label>
+            Your Twitter API secret
+            <input type="password" name="api-secret" class="api-secret" required>
+          </label>
+          <label>
+            Your Access Token
+            <input type="text" name="access-token" class="access-token" required>
+          </label>
+          <label>
+            Your Access Token Secret
+            <input type="password" name="access-token-secret" class="access-token-secret" required>
+          </label>
+          <button type="submit">Save</button>
+          <output class="output-message success"></output>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <script src="./js/vendor/jquery-2.1.1.min.js"></script>
+  <script src="./js/options.js"></script>
+</body>
+</html>

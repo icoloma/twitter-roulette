@@ -23,6 +23,7 @@
     "lodash": "^2.4.1"
   },
   "dependencies": {
+    "moment": "^2.8.3",
     "oauth-1.0a": "^0.1.1"
   }
 }
