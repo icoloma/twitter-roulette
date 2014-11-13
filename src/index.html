@@ -7,31 +7,75 @@
 </head>
 <body>
 
-  <div class="row">
-    <div class="columns contents">
-      <h1>DAT Twitter Roulette</h1>
-      <p class="lead">Search for a random tweet in fashion and style.
-      <form class="roulette-form">
-        <div class="row collapse">
-          <div class="columns small-6">
-            <input type="text" name="q" class="query" placeholder="Enter your twitter search" required>
-          </div>
-          <div class="columns small-6">
-            <button type="submit" class="showtime-button"><span class="icon-right-open"></span> <b>Showtime!</b></button>
-          </div>
+  <div class="overlay">
+    <div class="row">
+      <div class="columns">
+        <div class="collapsible-header">
+          <h1>DAT Twitter Roulette</h1>
+          <p class="lead">Search for a random tweet in fashion and style.
         </div>
-      </form>
-      <div class="tweets"></div>
-      <hr>
-      <p>Developed with ♥ by <a href="http://twitter.com/nachocoloma">Nacho Coloma</a>.
+        <form class="roulette-form">
+          <div class="row collapse">
+            <div class="columns small-6">
+              <input type="text" name="q" class="query" placeholder="Enter your twitter search" required>
+            </div>
+            <div class="columns small-6">
+              <button type="submit" class="search-button button"><span class="icon-search"></span> <b>Search</b></button>
+              <button type="button" class="showtime-button hide"><span class="icon-fire-station"></span> <b>Showtime!</b></button>
+            </div>
+          </div>
+        </form>
       </div>
-
-      </div>
+    </div>
+    <div class="options">
+      <div class="row">
+        <div class="columns">
+      <input type="checkbox" name="include-replies" class="include-replies"> Include replies
+      <input type="checkbox" name="include-retweets" class="include-retweets"> Include retweets
+      <output class="results"></output>
+    </div></div>
     </div>
   </div>
 
+  <div class="row">
+    <div class="columns">
+      <div class="tweets"></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="row">
+      <div class="columns">
+        Developed with <span class="icon-heart"></span> by <a href="http://twitter.com/nachocoloma" target="_blank">Nacho Coloma</a>.
+      </div>
+    </div>
+  </footer>
+
   <script type="text/template" class="tweet-template">
-    <div class="tweet"></div>
+
+    <div class="tweet row" id="{{id_str}}">
+      <div class="columns">
+        <a href="https://twitter.com/{{user.screen_name}}/status/{{id_str}}" target="_blank" class="avatar">
+          <img src="{{user.profile_image_url}}" style="background-color: {{user.profile_background_color}}" class="avatar-img">
+        </a>
+        <div class="tweet-body">
+          <div class="tweet-text">{{text}}</div>
+          <div class="user" data-user-id="{{user.id}}" data-banner-url="{{user.profile_banner_url}}">
+            <a href="https://twitter.com/{{user.screen_name}}" target="_blank">
+              <b>{{user.name}}</b> <span class="twitter-username">@{{user.screen_name}}</span>
+            </a> 
+            <a href="https://twitter.com/{{user.screen_name}}/status/{{id_str}}" target="_blank">
+              <span class="timestamp">{{humanizedTime}}</span>
+            </a>
+            <span class="notify">
+              &middot;
+              <a href="https://twitter.com/intent/tweet?in_reply_to={{id_str}}" target="_blank"><span class="icon-twitter"></span> Send congratulations</a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </script>
 
   <script src="./js/vendor/jquery-2.1.1.min.js"></script>

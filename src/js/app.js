@@ -5,12 +5,6 @@
 
   'use strict';
 
-  // go to the page
-  // create your app
-  // go to key and access tokens https://apps.twitter.com/app/7198719/keys
-  // click "Create Token"
-  var MAX_TWEETS = 200;
-
   var _ = require('lodash')
   , OAuth   = require('oauth-1.0a')
   , template = require('./template').template
@@ -19,6 +13,18 @@
   , oauth
   , token
   , tweetCount
+  , MAX_TWEETS = 10000
+
+  ,  scrollTo = function($element) {
+    if ($element.length) {
+      $('html, body').stop().animate({
+        'scrollTop': Math.max(0, $element.offset().top - (200 + $element.outerHeight() / 2))
+      }, 1000, function() {
+        $('.tweets').addClass('showtime');
+    
+      });
+    }
+  }
 
   , retrieveTweets = function(params) {
     $('.tweets-loading').html('Reading ' + (tweetCount + 100) + ' tweets...');
@@ -31,24 +37,37 @@
       type: request_data.method,
       headers: oauth.toHeader(oauth.authorize(request_data, token))
     }).then(function(response) {
-      console.log(response);
-      var tweets = response.statuses.map(function(item) {
-        return JSON.stringify(item);
-      })
 
+      console.log(response);
+
+      // Twitter will return up to 5 - 7 days or 1,500 tweets, whichever comes first
+      // on the last page, next_results is undefined
       tweetCount += response.statuses.length
-      if (tweetCount < MAX_TWEETS && response.statuses.length) {
+      if (tweetCount < MAX_TWEETS && response.search_metadata.next_results) {
         retrieveTweets(response.search_metadata.next_results)
       } else {
+        $('.overlay').addClass('collapsed');
+        $('.tweets').addClass('overlay-collapsed');
+        $('.showtime-button').toggleClass('hide', !tweetCount);
+
+        $('.results').html(
+          !tweetCount? '<span class="icon-frown"></span> No tweets found' : 
+            (tweetCount + ' tweets found')
+        );
+
         var tmpl = template($('.tweet-template').html())
-        , html = !tweetCount? '<p><span class="icon-heart-broken"></span> No tweets found' : response.statuses.map(function(tweet) {
-          return tmpl(_.extend({
-            humanizedTime: moment().fromNow()
-          }, tweet))
-        }).join('');
+        , html = response.statuses.map(function(tweet) {
+            return tmpl(_.extend({
+              humanizedTime: moment().fromNow()
+            }, tweet))
+          }).join('')
         $('.tweets').html(html);
       }
       
+    }).fail(function(request, error, message) {
+      var message = (request && request.responseJSON && request.responseJSON.errors && request.responseJSON.errors.length && request.responseJSON.errors[0].message) || message || 'Undefined error';
+      $('.tweets').html('<p data-alert class="alert-box alert">Error message from Twitter: ' + message);
+      console.log(e);
     });
 
   }
@@ -78,12 +97,19 @@
   $('.roulette-form').on('submit', function(e) {
     e.preventDefault();
 
+    $('.showtime-button').toggleClass('hide', !tweetCount);
+    $('.showtime').removeClass('showtime');
+
     // reset the tweet counter
     tweetCount = 0;
 
     // save the query into localStorage
     var query = $('.query').val();
     localStorage.setItem('query', query);
+    query +=
+        ($('.include-retweets').prop('checked')? '' : ' -filter:retweets') +
+        ($('.include-replies').prop('checked')? '' : ' -filter:replies')
+        ;
 
     // prepare credentials
     oauth = OAuth({
@@ -106,11 +132,18 @@
         '<div class="columns small-10"><output class="tweets-loading"></output></div>' +
       '</div>'
     );
-    retrieveTweets('?' + $.param({
-      q: query,
-      count: 100
-    }))
+    retrieveTweets('?q=' + encodeURIComponent(query) + '&count=100');
 
   });
+
+  $(document).on('click', '.showtime-button', function(e) {
+    var $tweets = $('.tweet')
+    , $randomTweet = $($tweets[~~ ($tweets.length * Math.random())])
+
+    e.preventDefault();
+    $('.tweet.selected').removeClass('selected');
+    $('.tweets').removeClass('showtime');
+    scrollTo($randomTweet.addClass('selected'))
+  })
 
 })(jQuery)

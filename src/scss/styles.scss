@@ -6,16 +6,122 @@
 
 html, body {
   width: 800px;
+  height: 600px;
+}
+body {
+  padding: 20px 10px;
+}
+.lead {
+  color: #888;
+}
+.overlay, footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  
+  z-index: 2;
+}
+.overlay {
+  top: 0;
+  padding: 20px 0 0;
+  background-color: rgba(255, 255, 255, .8);
+  transition: background-color .8s ease-out, color .8s ease-out;
+}
+footer {
+  bottom: 0;
+  background: #fff;
+  font-size: 12px;
+  line-height: 1.5;
+  color: gray;
+  padding: 10px 0;
 }
 .success {
-  color: $green;
+  color: $teal;
 }
-.icon-heart-broken {
-  color: $red;
-}
-.collapse .showtime-button {
+.showtime-button, .search-button {
   @include button-size(rem-calc(10));
 }
 .tweets-loading {
   line-height: 4;
+}
+.collapsible-header {
+  transition: all .5s ease-out;
+  overflow: hidden;
+  height: 135px;
+}
+.collapsed {
+  background-color: $primary-color;
+  color: white;
+  .collapsible-header {
+    height: 0;
+    opacity: 0;
+  }
+  .options {
+    background-color: $secondary-color;
+  }
+}
+.twitter-username, .timestamp {
+  color: #666;
+}
+.options {
+  padding-top: 12px;
+  color: $black;
+  input[type="checkbox"]:not(:first-child) {
+    margin-left: 15px;
+  }
+}
+.user {
+  font-size: 80%;
+}
+.tweets {
+  transition: margin-top .7s ease-out;
+  margin-top: 240px;
+  &.overlay-collapsed {
+    margin-top: 105px;
+  }
+}
+.tweet {
+  border-bottom: 1px solid #ddd;
+  padding: 15px 0;
+  line-height: 1.5;
+  transition: opacity 2s ease-out;
+
+  &.selected  {
+    border-top: 1px solid #ddd;
+  }
+}
+.showtime > .tweet:not(.selected) {
+  opacity: 0;
+}
+.avatar, .tweet-body {
+  display: inline-block;
+  vertical-align: top;
+}
+.tweet-body {
+  width: 680px;
+}
+.avatar {
+  margin-right: 10px;
+  margin-top: 5px;
+  width: 48px;
+}
+.avatar-img {
+  border-radius: 5px;
+  width: 48px;
+  height: 48px;
+}
+.results {
+  margin-left: 11px;
+  color: darken($teal, 10%);
+  font-weight: bold;
+}
+.notify {
+  opacity: 0;
+  transition: opacity .2s 2s ease-out;
+}
+.tweet.selected .notify {
+  opacity: 1;
+}
+.tweet:not(.selected) .notify {
+  display: none;
 }

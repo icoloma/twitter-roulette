@@ -4,6 +4,9 @@
 $twitter-color: #00aced;
 $green: #4CAF50;
 $red: #F44336;
+$black: #222;
+$teal: #009688;
+$lime: #8BC34A;
 
 //
 // FOUNDATION SETTINGS
@@ -44,7 +47,7 @@ $base-font-size: 18px;
 // We use these to control various global styles
 // $body-bg: #fff;
 // $body-font-color: #222;
-$font-weight-normal: 300;
+$font-weight-normal: 500;
 $body-font-family: "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 // $body-font-weight: $font-weight-normal;
 // $body-font-style: normal;
@@ -58,8 +61,8 @@ $body-font-family: "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial,
 // $default-float: left;
 
 // We use these as default colors throughout
-// $primary-color: #008CBA;
-// $secondary-color: #e7e7e7;
+$primary-color: $teal;
+$secondary-color: $lime;
 // $alert-color: #f04124;
 // $success-color: #43AC6A;
 // $warning-color: #f08a24;

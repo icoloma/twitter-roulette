@@ -7,22 +7,46 @@
   "ascent": 850,
   "glyphs": [
     {
-      "uid": "12f4ece88e46abd864e40b35e05b11cd",
-      "css": "ok",
-      "code": 59393,
-      "src": "fontawesome"
-    },
-    {
-      "uid": "399ef63b1e23ab1b761dfbb5591fa4da",
-      "css": "right-open",
+      "uid": "9dd9e835aebe1060ba7190ad2b2ed951",
+      "css": "search",
       "code": 59392,
       "src": "fontawesome"
     },
     {
-      "uid": "862129f833b09f3d34ae39acf8484a7b",
-      "css": "heart-broken",
+      "uid": "d73eceadda1f594cec0536087539afbf",
+      "css": "heart",
       "code": 59394,
-      "src": "mfglabs"
+      "src": "fontawesome"
+    },
+    {
+      "uid": "12f4ece88e46abd864e40b35e05b11cd",
+      "css": "ok",
+      "code": 59397,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "9a76bc135eac17d2c8b8ad4a5774fc87",
+      "css": "download",
+      "code": 59396,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "06ddc67d609c477cd5524a7238d7850d",
+      "css": "frown",
+      "code": 59395,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "627abcdb627cb1789e009c08e2678ef9",
+      "css": "twitter",
+      "code": 59398,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "a9d3392264236bb9fe4d60a130c662d1",
+      "css": "fire-station",
+      "code": 59393,
+      "src": "maki"
     }
   ]
 }
