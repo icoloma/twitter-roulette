@@ -2,9 +2,11 @@
 
 We expected this to exist somewhere else, but it didn't. So we did it.
 
-This page will require a Twitter API key and search term, and it will perform a random search. Useful for IT events and such. Developed in 48h, battle-tested at Codemotion Spain. 
+This Chrome extension will pick a random tweet based on your search criteria, useful for IT events and promotions. It requires a Twitter API key. Developed in 48h, battle-tested at Codemotion Spain.
 
-The Twitter API does not serve proper CORS headers, so it doesn't support pure JavaScript JSON requests. In order to do this without a server, we had to package it as a Chrome Extension.
+The Twitter API does not serve proper CORS headers, so in order to do this without a server, it had to be packaged as a Chrome Extension.
+
+This extension is available <a href="https://chrome.google.com/webstore/detail/jidffkpleipkoohdmdjabocmehcemifm">at the Chrome Store</a>.
 
 ## Quick start
 
