@@ -13,7 +13,7 @@ This extension is available <a href="https://chrome.google.com/webstore/detail/j
 ```bash
 git clone https://github.com/icoloma/twitter-roulette.git
 cd twitter-roulette
-sudo npm install -g gulp 
+# sudo npm install -g gulp 
 npm install
 gulp
 ```
