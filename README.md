@@ -11,6 +11,9 @@ This extension is available <a href="https://chrome.google.com/webstore/detail/j
 ## Quick start
 
 ```bash
+# Dependencies of the dependencies, see https://github.com/Automattic/node-canvas
+sudo apt-get install libcairo2-dev libjpeg8-dev libpango1.0-dev libgif-dev build-essential g++
+
 git clone https://github.com/icoloma/twitter-roulette.git
 cd twitter-roulette
 # sudo npm install -g gulp 
